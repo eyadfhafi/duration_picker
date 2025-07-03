@@ -75,8 +75,14 @@ class DialPainter extends CustomPainter {
     // }
     var outerCircleInnerShadowOffSet =
         Offset((size.width / 2.0), (size.height / 2.0));
+    var theme=Theme.of(context);
+    var isDark = theme.brightness == Brightness.dark;
     var gradiee = ui.Gradient.radial(center, radius / .8,
-        [Colors.white, Color.fromRGBO(10, 10, 10, 1)], [0.775, 0.999]);
+        [
+          isDark ? Color(0xFF2D2D2D) : Colors.white,
+          isDark ? Color(0xFF1A1A1A) : Color.fromRGBO(240, 240, 240, 1)
+        ],
+    );
     var shadedPaint = Paint()
       ..color = Color.fromRGBO(10, 0, 0, 0.9)
       ..shader = gradiee;
@@ -104,11 +110,11 @@ class DialPainter extends CustomPainter {
     }
     shadowOffSet = Offset((size.width / 2.0) + 4, (size.height / 2.0) + 4);
     canvas.drawCircle(
-        shadowOffSet, innerCircleRadius, Paint()..color = Colors.black38);
+        shadowOffSet, innerCircleRadius, Paint()..color =  isDark ? Colors.black54 :Colors.black38);
 
     // Draw the inner background circle
     canvas.drawCircle(centerPoint, innerCircleRadius,
-        Paint()..color = Color.fromRGBO(240, 240, 240, 1));
+        Paint()..color =isDark ? Color.fromRGBO(50, 50, 50, 1) :  Color.fromRGBO(240, 240, 240, 1));
 
     // Get the offset point for an angle value of theta, and a distance of _radius
     Offset getOffsetForTheta(double theta, double radius) {
